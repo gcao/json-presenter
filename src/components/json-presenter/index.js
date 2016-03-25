@@ -8,6 +8,7 @@ class JsonPresenter extends Component {
     render() {
         var depth = this.props.depth || 0;
         var data = this.props.data;
+
         if (R.isArrayLike(data)) {
             return (
                 <table className={'json-array depth' + depth}>
@@ -23,19 +24,17 @@ class JsonPresenter extends Component {
                 </table>
             );
         } else if (R.is(Object, data)) {
-            var rows = [];
-            var i = 0;
-            for (name in data) {
-                rows.push(
-                    <tr className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
-                        <td className="prop-name">{name}</td>
-                        <td className="prop-value"><JsonPresenter data={data[name]} depth={depth + 1}/></td>
-                    </tr>
-                );
-                i += 1;
-            }
             return (
-                <table className={'json-object depth' + depth}>{rows}</table>
+                <table className={'json-object depth' + depth}>
+                    {
+                        Object.keys(data).sort().map((key, i) =>
+                            <tr key={key} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
+                                <td className="prop-name">{key}</td>
+                                <td className="prop-value"><JsonPresenter data={data[key]} depth={depth + 1}/></td>
+                            </tr>
+                        )
+                    }
+                </table>
             );
         } else {
             return (
