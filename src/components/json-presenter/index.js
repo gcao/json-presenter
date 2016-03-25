@@ -10,30 +10,32 @@ class JsonPresenter extends Component {
         var data = this.props.data;
         if (R.isArrayLike(data)) {
             return (
-                <div className={'json-array depth' + depth}>
+                <table className={'json-array depth' + depth}>
                     {
                         data.map((item, i) =>
-                            <div key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
-                                <JsonPresenter data={item} depth={depth + 1}/>
-                            </div>
+                            <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
+                                <td>
+                                    <JsonPresenter data={item} depth={depth + 1}/>
+                                </td>
+                            </tr>
                         )
                     }
-                </div>
+                </table>
             );
         } else if (R.is(Object, data)) {
             var rows = [];
             var i = 0;
             for (name in data) {
                 rows.push(
-                    <div className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
-                        <div className="prop-name">{name}</div>
-                        <div className="prop-value"><JsonPresenter data={data[name]} depth={depth + 1}/></div>
-                    </div>
+                    <tr className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
+                        <td className="prop-name">{name}</td>
+                        <td className="prop-value"><JsonPresenter data={data[name]} depth={depth + 1}/></td>
+                    </tr>
                 );
                 i += 1;
             }
             return (
-                <div className={'json-object depth' + depth}>{rows}</div>
+                <table className={'json-object depth' + depth}>{rows}</table>
             );
         } else {
             return (

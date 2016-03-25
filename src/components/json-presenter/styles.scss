@@ -1,14 +1,25 @@
+table {
+    border-collapse: collapse;
+
+    &.json-array {
+        border-collapse: separate;
+    }
+}
+
+td {
+    padding: 4px 6px;
+}
+
 .json-object {
-    border: 1px solid #f77;
+    border: 1px solid #666;
+    background-color: white;
 }
 
 .json-array {
-    border: 1px solid #88f;
+    background-color: white;
 }
 
 .row {
-    padding: 5px;
-
     &.odd {
         background-color: #eee;
     }
@@ -18,15 +29,43 @@
     }
 }
 
+.depth1 > * > .row, .depth1 > .row {
+    &.odd {
+        background-color: #ccc;
+    }
+    &.even {
+        background-color: #dab;
+    }
+}
+
+.depth2 > * > .row, .depth2 > .row {
+    &.odd {
+        background-color: #aaa;
+    }
+    &.even {
+        background-color: #c9a;
+    }
+}
+
+.depth3 > * > .row, .depth3 > .row {
+    &.odd {
+        background-color: #999;
+    }
+    &.even {
+        background-color: #b89;
+    }
+}
+
 .prop-name {
-    display: inline-block;
-    padding: 0 5px;
-    vertical-align: top;
+    padding-right: 2px;
+    vertical-align: middle;
+    text-align: right;
+    &::after {
+        content: " :";
+    }
 }
 
 .prop-value {
-    display: inline-block;
-    padding: 0 5px;
-    vertical-align: top;
+    vertical-align: middle;
 }
 

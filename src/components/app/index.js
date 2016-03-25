@@ -16,7 +16,21 @@ class App extends Component {
                     "first": "this is a test",
                     "second": "this is another test"
                 },
+                {
+                    "first": "this is a test",
+                    "second": "this is another test"
+                },
                 300
+            ],
+            "c": [
+                [
+                  "item 1",
+                  "item 2",
+                  "item 3"
+                ],
+                [
+                  { "name": "John Doe", "age": 20, "email": "john_doe@company.com" }
+                ]
             ]
         }
         `;
