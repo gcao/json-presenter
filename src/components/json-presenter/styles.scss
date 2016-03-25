@@ -1,12 +1,32 @@
+.json-object {
+    border: 1px solid #f77;
+}
+
+.json-array {
+    border: 1px solid #88f;
+}
+
+.row {
+    padding: 5px;
+
+    &.odd {
+        background-color: #eee;
+    }
+
+    &.even {
+        background-color: #fcd;
+    }
+}
+
 .prop-name {
     display: inline-block;
-    padding: 0px 5px 10px 0px;
+    padding: 0 5px;
     vertical-align: top;
 }
 
 .prop-value {
     display: inline-block;
-    padding: 0px 5px 10px 0px;
+    padding: 0 5px;
     vertical-align: top;
 }
 

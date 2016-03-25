@@ -12,6 +12,10 @@ class App extends Component {
             "b": [
                 100,
                 200,
+                {
+                    "first": "this is a test",
+                    "second": "this is another test"
+                },
                 300
             ]
         }
@@ -20,7 +24,7 @@ class App extends Component {
             <div className={styles.root}>
                 <h1>{"JSON Presenter"}</h1>
                 <JsonPresenter data={JSON.parse(data)}/>
-                <textarea style={{marginTop: '15px'}} rows="25" cols="100">{data}</textarea>
+                <textarea style={{marginTop: '15px', border: '0px'}} rows="25" cols="100">{data}</textarea>
             </div>
         );
     }
