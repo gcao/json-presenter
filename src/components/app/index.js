@@ -8,7 +8,12 @@ class App extends Component {
     render() {
         var data = `
         {
-            "a": "b"
+            "a": "a-value",
+            "b": [
+                100,
+                200,
+                300
+            ]
         }
         `;
         return (
