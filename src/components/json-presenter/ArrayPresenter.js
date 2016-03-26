@@ -1,12 +1,17 @@
 import React, { Component, PropTypes } from 'react';
-//import R from 'ramda';
+import R from 'ramda';
 
 import JsonPresenter from '.';
+import ArrayOfObjectsPresenter from './ArrayOfObjectsPresenter';
 
 class ArrayPresenter extends Component {
     render() {
         var depth = this.props.depth;
         var data  = this.props.data;
+
+        if (data.length > 0 && R.is(Object, data[0]) && !R.isArrayLike(data[0])) {
+            return (<ArrayOfObjectsPresenter data={data} depth={depth}/>);
+        }
 
         return (
             <table className={'json-array depth' + depth}>
