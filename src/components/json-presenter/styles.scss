@@ -25,6 +25,16 @@ td {
     background-color: white;
 }
 
+.json-array-array {
+    border: 1px solid #88f;
+    border-collapse: separate;
+    background-color: white;
+}
+
+.index-col {
+    font-size: small;
+}
+
 .row {
     &.odd {
         background-color: #eee;

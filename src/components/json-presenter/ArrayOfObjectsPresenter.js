@@ -11,6 +11,7 @@ class ArrayOfObjectsPresenter extends Component {
         var keys = R.uniq(R.flatten(R.map(Object.keys, data)));
         var head = (
             <tr className="head">
+                <td className="index-col">&nbsp;</td>
                 {
                     keys.map((key, i) => <th key={i}>{key}</th>)
                 }
@@ -19,6 +20,7 @@ class ArrayOfObjectsPresenter extends Component {
 
         var body = data.map((row, i) =>
             <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
+                <td className="index-col">{i + 1}</td>
                 {
                     keys.map((key) => <td><JsonPresenter data={row[key]} depth={depth + 1}/></td>)
                 }

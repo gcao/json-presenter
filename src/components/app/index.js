@@ -33,7 +33,8 @@ class App extends Component {
                 [
                   { "name": "John Doe", "age": 20, "email": "john_doe@company.com" }
                 ]
-            ]
+            ],
+            "d": { "name": "John Doe", "age": 20, "email": "john_doe@company.com" }
         }
         `;
         return (
