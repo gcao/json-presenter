@@ -10,17 +10,19 @@ class App extends Component {
         {
             "a": "a-value",
             "b": [
-                100,
-                200,
                 {
-                    "first": "this is a test",
-                    "second": "this is another test"
+                    "first": "first value",
+                    "second": "second value"
                 },
                 {
-                    "first": "this is a test",
-                    "second": "this is another test"
+                    "first": "first value 2",
+                    "second": "second value 2"
                 },
-                300
+                {
+                    "first": "first value 3",
+                    "second": "second value 3",
+                    "third": "third value 3"
+                }
             ],
             "c": [
                 [

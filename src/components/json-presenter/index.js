@@ -2,6 +2,9 @@ import React, { Component, PropTypes } from 'react';
 import R from 'ramda';
 global.R = R; // Exported for testing purpose
 
+import ObjectPresenter from './ObjectPresenter';
+import ArrayPresenter from './ArrayPresenter';
+
 import './styles.scss';
 
 class JsonPresenter extends Component {
@@ -10,32 +13,9 @@ class JsonPresenter extends Component {
         var data = this.props.data;
 
         if (R.isArrayLike(data)) {
-            return (
-                <table className={'json-array depth' + depth}>
-                    {
-                        data.map((item, i) =>
-                            <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
-                                <td>
-                                    <JsonPresenter data={item} depth={depth + 1}/>
-                                </td>
-                            </tr>
-                        )
-                    }
-                </table>
-            );
+            return (<ArrayPresenter data={data} depth={depth}/>);
         } else if (R.is(Object, data)) {
-            return (
-                <table className={'json-object depth' + depth}>
-                    {
-                        Object.keys(data).sort().map((key, i) =>
-                            <tr key={key} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
-                                <td className="prop-name">{key}</td>
-                                <td className="prop-value"><JsonPresenter data={data[key]} depth={depth + 1}/></td>
-                            </tr>
-                        )
-                    }
-                </table>
-            );
+            return (<ObjectPresenter data={data} depth={depth}/>);
         } else {
             return (
                 <div className={'json-literal depth' + depth}>
@@ -47,7 +27,7 @@ class JsonPresenter extends Component {
 }
 
 JsonPresenter.propTypes = {
-    data: PropTypes.any.isRequired,
+    data:  PropTypes.any.isRequired,
     depth: PropTypes.number
 };
 
