@@ -22,7 +22,7 @@ class ArrayOfObjectsPresenter extends Component {
             <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
                 <td className="index-col">{i + 1}</td>
                 {
-                    keys.map((key) => <td><JsonPresenter data={row[key]} depth={depth + 1}/></td>)
+                    keys.map((key, j) => <td key={j}><JsonPresenter data={row[key]} depth={depth + 1}/></td>)
                 }
             </tr>
         );
