@@ -13,6 +13,14 @@ class ArrayOfArraysPresenter extends Component {
         return (
             <table className={'json-array-array depth' + depth}>
                 {
+                    <tr className="head">
+                        <th className="index-col">&nbsp;</th>
+                        {
+                            R.times((i) => <th key={i}>{i+1}</th>, width)
+                        }
+                    </tr>
+                }
+                {
                    data.map((row, i) =>
                        <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
                            <td className="index-col">{i + 1}</td>
