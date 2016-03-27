@@ -5,8 +5,9 @@ import JsonPresenter from '.';
 
 class ArrayOfObjectsPresenter extends Component {
     render() {
-        var depth = this.props.depth;
         var data  = this.props.data;
+        var path  = this.props.path;
+        var depth = path.length;
 
         var keys = R.uniq(R.flatten(R.map(Object.keys, data)));
         var head = (
@@ -22,7 +23,7 @@ class ArrayOfObjectsPresenter extends Component {
             <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
                 <td className="index-col">{i + 1}</td>
                 {
-                    keys.map((key, j) => <td key={j}><JsonPresenter data={row[key]} depth={depth + 1}/></td>)
+                    keys.map((key, j) => <td key={j}><JsonPresenter data={row[key]} path={path.append(i).append(key)}/></td>)
                 }
             </tr>
         );
@@ -37,8 +38,8 @@ class ArrayOfObjectsPresenter extends Component {
 }
 
 ArrayOfObjectsPresenter.propTypes = {
-    data:  PropTypes.any.isRequired,
-    depth: PropTypes.number.isRequired
+    data: PropTypes.any.isRequired,
+    path: PropTypes.array.isRequired
 };
 
 export default ArrayOfObjectsPresenter;

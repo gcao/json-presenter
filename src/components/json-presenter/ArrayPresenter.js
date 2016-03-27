@@ -7,14 +7,15 @@ import ArrayOfObjectsPresenter from './ArrayOfObjectsPresenter';
 
 class ArrayPresenter extends Component {
     render() {
-        var depth = this.props.depth;
         var data  = this.props.data;
+        var path  = this.props.path;
+        var depth = path.length;
 
         if (data.length > 0) {
             if (R.isArrayLike(data[0])) {
-                return (<ArrayOfArraysPresenter data={data} depth={depth}/>);
+                return (<ArrayOfArraysPresenter data={data} path={path}/>);
             } else if (R.is(Object, data[0])) {
-                return (<ArrayOfObjectsPresenter data={data} depth={depth}/>);
+                return (<ArrayOfObjectsPresenter data={data} path={path}/>);
             }
         }
 
@@ -24,7 +25,7 @@ class ArrayPresenter extends Component {
                     data.map((item, i) =>
                         <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
                             <td>
-                                <JsonPresenter data={item} depth={depth + 1}/>
+                                <JsonPresenter data={item} path={path.append(i)}/>
                             </td>
                         </tr>
                     )
@@ -35,8 +36,8 @@ class ArrayPresenter extends Component {
 }
 
 ArrayPresenter.propTypes = {
-    data:  PropTypes.any.isRequired,
-    depth: PropTypes.number.isRequired
+    data: PropTypes.any.isRequired,
+    path: PropTypes.array.isRequired
 };
 
 export default ArrayPresenter;

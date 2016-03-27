@@ -9,13 +9,14 @@ import './styles.scss';
 
 class JsonPresenter extends Component {
     render() {
-        var depth = this.props.depth || 0;
-        var data = this.props.data;
+        var data  = this.props.data;
+        var path  = this.props.path;
+        var depth = path.length;
 
         if (R.isArrayLike(data)) {
-            return (<ArrayPresenter data={data} depth={depth}/>);
+            return (<ArrayPresenter data={data} path={path}/>);
         } else if (R.is(Object, data)) {
-            return (<ObjectPresenter data={data} depth={depth}/>);
+            return (<ObjectPresenter data={data} path={path}/>);
         } else {
             return (
                 <div className={'json-literal depth' + depth}>
@@ -27,8 +28,8 @@ class JsonPresenter extends Component {
 }
 
 JsonPresenter.propTypes = {
-    data:  PropTypes.any.isRequired,
-    depth: PropTypes.number
+    data: PropTypes.any.isRequired,
+    path: PropTypes.array.isRequired
 };
 
 export default JsonPresenter;

@@ -8,35 +8,51 @@ import App from './components/app';
 import reducers from './reducers';
 
 let rawData = `
-    {
-        "a": "a-value",
-        "b": [
-            {
-                "first": "first value",
-                "second": "second value"
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "title": "Product set",
+    "type": "array",
+    "items": {
+        "title": "Product",
+        "type": "object",
+        "properties": {
+            "id": {
+                "description": "The unique identifier for a product",
+                "type": "number"
             },
-            {
-                "first": "first value 2",
-                "second": "second value 2"
+            "name": {
+                "type": "string"
             },
-            {
-                "first": "first value 3",
-                "second": "second value 3",
-                "third": "third value 3"
+            "price": {
+                "type": "number",
+                "minimum": 0,
+                "exclusiveMinimum": true
+            },
+            "tags": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                },
+                "minItems": 1,
+                "uniqueItems": true
+            },
+            "dimensions": {
+                "type": "object",
+                "properties": {
+                    "length": {"type": "number"},
+                    "width": {"type": "number"},
+                    "height": {"type": "number"}
+                },
+                "required": ["length", "width", "height"]
+            },
+            "warehouseLocation": {
+                "description": "Coordinates of the warehouse with the product",
+                "$ref": "http://json-schema.org/geo"
             }
-        ],
-        "c": [
-            [
-              "item 1",
-              "item 2",
-              "item 3"
-            ],
-            [
-              { "name": "John Doe", "age": 20, "email": "john_doe@company.com" }
-            ]
-        ],
-        "d": { "name": "John Doe", "age": 20, "email": "john_doe@company.com" }
+        },
+        "required": ["id", "name", "price"]
     }
+}
 `;
 
 var initialState = {
