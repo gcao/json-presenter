@@ -3,7 +3,10 @@
 class JsonPath {
     constructor(parts = []) {
         this.parts = parts;
-        this.length = parts.length;
+    }
+
+    size() {
+        return this.parts.length;
     }
 
     append(part) {
@@ -15,6 +18,12 @@ class JsonPath {
             target = target[part];
         });
         return target;
+    }
+
+    toString() {
+        if (this.parts.length === 0) return 'this';
+
+        return 'this' + this.parts.map((part) => `[${JSON.stringify(part)}]`).join('');
     }
 }
 

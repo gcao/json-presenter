@@ -9,9 +9,8 @@ import './styles.scss';
 
 class JsonPresenter extends Component {
     render() {
-        var data  = this.props.data;
-        var path  = this.props.path;
-        var depth = path.length;
+        var data = this.props.data;
+        var path = this.props.path;
 
         if (R.isArrayLike(data)) {
             return (<ArrayPresenter data={data} path={path}/>);
@@ -19,7 +18,7 @@ class JsonPresenter extends Component {
             return (<ObjectPresenter data={data} path={path}/>);
         } else {
             return (
-                <div className={'json-literal depth' + depth}>
+                <div className={'json-literal depth' + path.size()}>
                     {data}
                 </div>
             );
