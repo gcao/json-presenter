@@ -31,7 +31,13 @@ class ArrayOfObjectsPresenter extends Component {
                         >
                             <td className="index-col">{i + 1}</td>
                             {
-                                keys.map((key, j) => <td key={j}><JsonPresenter data={row[key]} path={path.append(i).append(key)}/></td>)
+                                keys.map((key, j) => {
+                                    return (
+                                        <td key={j} onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path.append(i).append(key))); }}>
+                                            <JsonPresenter data={row[key]} path={path.append(i).append(key)}/>
+                                        </td>
+                                    );
+                                })
                             }
                         </tr>
                     )

@@ -31,7 +31,13 @@ class ArrayOfArraysPresenter extends Component {
                        >
                            <td className="index-col">{i + 1}</td>
                            {
-                               R.times((j) => <td><JsonPresenter data={row[j]} path={path.append(i).append(j)}/></td>, width)
+                               R.times((j) => {
+                                   return (
+                                       <td onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path.append(i).append(j))); }}>
+                                           <JsonPresenter data={row[j]} path={path.append(i).append(j)}/>
+                                       </td>
+                                   );
+                               }, width)
                            }
                        </tr>
                    )
