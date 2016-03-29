@@ -16,12 +16,13 @@ export default function reducers(state = {}, action) {
         var value = action.value;
         // TODO make a copy instead of change in place to support undo/redo
         var current = state.data;
-        path.parts.slice(0, action.path.size - 1).forEach(part => {
+        path.parts.slice(0, path.size() - 1).forEach(part => {
             current = current[part];
         });
         current[path.parts[path.size() - 1]] = value;
         return Object.assign({}, state, {
-            rawData: JSON.stringify(state.data, null, 4)
+            rawData: JSON.stringify(state.data, null, 4),
+            data: state.data
         });
     default:
         return state;
