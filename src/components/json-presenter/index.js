@@ -4,6 +4,7 @@ global.R = R; // Exported for testing purpose
 
 import ObjectPresenter from './ObjectPresenter';
 import ArrayPresenter from './ArrayPresenter';
+import LiteralPresenter from './LiteralPresenter';
 
 import './styles.scss';
 
@@ -17,11 +18,7 @@ class JsonPresenter extends Component {
         } else if (R.is(Object, data)) {
             return (<ObjectPresenter data={data} path={path}/>);
         } else {
-            return (
-                <div className={'json-literal depth' + path.size()}>
-                    {data}
-                </div>
-            );
+            return (<LiteralPresenter data={data} path={path}/>);
         }
     }
 }

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 //import R from 'ramda';
 
-import actions from '../../actions';
+import { setPath } from '../../actions';
 import JsonPresenter from '.';
 
 class ObjectPresenter extends Component {
@@ -13,12 +13,20 @@ class ObjectPresenter extends Component {
         return (
             <table
                 className={'json-object depth' + path.size()}
-                onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path)); }}
+                onMouseEnter={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.props.dispatch(setPath(path));
+                }}
             >
                 {
                     Object.keys(data).sort().map((key, i) =>
                         <tr key={key} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
-                            onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path.append(key))); }}
+                            onMouseEnter={e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                this.props.dispatch(setPath(path.append(key)));
+                            }}
                         >
                             <td className="prop-name">{key}</td>
                             <td className="prop-value"><JsonPresenter data={data[key]} path={path.append(key)}/></td>

@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
-import actions from '../../actions';
+import { setPath } from '../../actions';
 import JsonPresenter from '.';
 
 class ArrayOfObjectsPresenter extends Component {
@@ -14,7 +14,11 @@ class ArrayOfObjectsPresenter extends Component {
         return (
             <table
                 className={'json-object-array depth' + path.size()}
-                onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path)); }}
+                onMouseEnter={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.props.dispatch(setPath(path));
+                }}
             >
                 {
                     <tr className="head">
@@ -27,13 +31,23 @@ class ArrayOfObjectsPresenter extends Component {
                 {
                     data.map((row, i) =>
                         <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
-                            onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path.append(i))); }}
+                            onMouseEnter={e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                this.props.dispatch(setPath(path.append(i)));
+                            }}
                         >
                             <td className="index-col">{i + 1}</td>
                             {
                                 keys.map((key, j) => {
                                     return (
-                                        <td key={j} onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path.append(i).append(key))); }}>
+                                        <td key={j}
+                                            onMouseEnter={e => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                this.props.dispatch(setPath(path.append(i).append(key)));
+                                            }}
+                                        >
                                             <JsonPresenter data={row[key]} path={path.append(i).append(key)}/>
                                         </td>
                                     );

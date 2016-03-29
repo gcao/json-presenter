@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
-import actions from '../../actions';
+import { setPath } from '../../actions';
 import JsonPresenter from '.';
 
 class ArrayOfArraysPresenter extends Component {
@@ -14,7 +14,11 @@ class ArrayOfArraysPresenter extends Component {
         return (
             <table
                 className={'json-array-array depth' + path.size()}
-                onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path)); }}
+                onMouseEnter={e => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.props.dispatch(setPath(path));
+                }}
             >
                 {
                     <tr className="head">
@@ -25,22 +29,31 @@ class ArrayOfArraysPresenter extends Component {
                     </tr>
                 }
                 {
-                   data.map((row, i) =>
-                       <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
-                           onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path.append(i))); }}
-                       >
-                           <td className="index-col">{i + 1}</td>
-                           {
-                               R.times((j) => {
-                                   return (
-                                       <td onMouseOver={e => { e.stopPropagation(); this.props.dispatch(actions.SET_PATH(path.append(i).append(j))); }}>
-                                           <JsonPresenter data={row[j]} path={path.append(i).append(j)}/>
-                                       </td>
-                                   );
-                               }, width)
-                           }
-                       </tr>
-                   )
+                    data.map((row, i) =>
+                        <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
+                            onMouseEnter={e => {
+                                e.preventDefault();
+                                e.stopPropagation();
+                                this.props.dispatch(setPath(path.append(i)));
+                            }}
+                        >
+                            <td className="index-col">{i + 1}</td>
+                            {
+                                R.times((j) => {
+                                    return (
+                                        <td onMouseEnter={e => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            this.props.dispatch(setPath(path.append(i).append(j)));
+                                        }}
+                                        >
+                                            <JsonPresenter data={row[j]} path={path.append(i).append(j)}/>
+                                        </td>
+                                    );
+                                }, width)
+                            }
+                        </tr>
+                    )
                 }
             </table>
         );
