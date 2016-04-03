@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-//import R from 'ramda';
+import { RIEInput } from 'riek';
 
-import { setPath } from '../../actions';
+import { setPath, updatePropName } from '../../actions';
 import JsonPresenter from '.';
 
 class ObjectPresenter extends Component {
@@ -19,20 +19,30 @@ class ObjectPresenter extends Component {
                     this.props.dispatch(setPath(path));
                 }}
             >
-                {
-                    Object.keys(data).sort().map((key, i) =>
-                        <tr key={key} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
-                            onMouseEnter={e => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                this.props.dispatch(setPath(path.append(key)));
-                            }}
-                        >
-                            <td className="prop-name">{key}</td>
-                            <td className="prop-value"><JsonPresenter data={data[key]} path={path.append(key)}/></td>
-                        </tr>
-                    )
-                }
+                <tbody>
+                    {
+                        Object.keys(data).sort().map((key, i) =>
+                            <tr key={key} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
+                                onMouseEnter={e => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    this.props.dispatch(setPath(path.append(key)));
+                                }}
+                            >
+                                <td className="prop-name">
+                                    <RIEInput value={key || ''} propName="data"
+                                        change={change => {
+                                            if (key !== change.data) {
+                                                this.props.dispatch(updatePropName(this.props.path, key, change.data));
+                                            }
+                                        }}
+                                    />
+                                </td>
+                                <td className="prop-value"><JsonPresenter data={data[key]} path={path.append(key)}/></td>
+                            </tr>
+                        )
+                    }
+                </tbody>
             </table>
         );
     }

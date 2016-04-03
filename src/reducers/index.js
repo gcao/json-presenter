@@ -1,6 +1,8 @@
-import { SET_PATH, UPDATE_JSON, UPDATE_DATA } from '../actions';
+import { SET_PATH, UPDATE_JSON, UPDATE_DATA, UPDATE_PROP_NAME } from '../actions';
 
 export default function reducers(state = {}, action) {
+    var path, value, current;
+
     switch (action.type) {
     case UPDATE_JSON:
         return Object.assign({}, state, {
@@ -12,14 +14,26 @@ export default function reducers(state = {}, action) {
             pathUnderMouse: action.path
         });
     case UPDATE_DATA:
-        var path = action.path;
-        var value = action.value;
+        path = action.path;
+        value = action.value;
         // TODO make a copy instead of change in place to support undo/redo
-        var current = state.data;
+        current = state.data;
         path.parts.slice(0, path.size() - 1).forEach(part => {
             current = current[part];
         });
         current[path.parts[path.size() - 1]] = value;
+        return Object.assign({}, state, {
+            rawData: JSON.stringify(state.data, null, 4),
+            data: state.data
+        });
+    case UPDATE_PROP_NAME:
+        path = action.path;
+        var oldName = action.oldName;
+        var newName = action.newName;
+        // TODO make a copy instead of change in place to support undo/redo
+        current = path.findIn(state.data);
+        current[newName] = current[oldName];
+        delete current[oldName];
         return Object.assign({}, state, {
             rawData: JSON.stringify(state.data, null, 4),
             data: state.data

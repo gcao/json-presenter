@@ -13,7 +13,7 @@ class LiteralPresenter extends Component {
             <div className={'json-literal depth' + path.size()}>
                 <RIEInput value={data || ''} propName="data"
                     change={change => {
-                        if (this.props.data !== change.value) {
+                        if (this.props.data !== change.data) {
                             this.props.dispatch(updateData(this.props.path, change.data));
                         }
                     }}

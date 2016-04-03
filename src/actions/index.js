@@ -1,6 +1,7 @@
 export let SET_PATH    = 'SET_PATH';
 export let UPDATE_JSON = 'UPDATE_JSON';
 export let UPDATE_DATA = 'UPDATE_DATA';
+export let UPDATE_PROP_NAME = 'UPDATE_PROP_NAME';
 
 export function setPath(path) {
     return {
@@ -25,3 +26,12 @@ export function updateData(path, value) {
     };
 }
 
+export function updatePropName(path, oldName, newName) {
+    //console.warn('UPDATE', path, value);
+    return {
+        type: UPDATE_PROP_NAME,
+        path: path,
+        oldName: oldName,
+        newName: newName
+    };
+}
