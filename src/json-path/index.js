@@ -20,6 +20,10 @@ class JsonPath {
         return target;
     }
 
+    toPropName() {
+        return JSON.stringify(this.parts);
+    }
+
     toString() {
         if (this.parts.length === 0) return 'this';
 

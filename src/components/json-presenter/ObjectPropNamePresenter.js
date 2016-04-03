@@ -2,21 +2,23 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { RIEInput } from 'riek';
 
-import { updatePropName } from '../../actions';
+import { updatePropName, updateConfig } from '../../actions';
 
 class ObjectPropNamePresenter extends Component {
     render() {
         var dispatch = this.props.dispatch;
         var path     = this.props.path;
         var name     = this.props.name;
+        var config   = this.props.config || {};
 
-        // TODO this is against the principles of React and Redux and doesn't work
-        var showActionsIcon = false;
+        var propPath = path.append(name);
+        var configForPath = config[propPath.toPropName()] || {};
+        var showActionsIcon = configForPath['showActionsIcon'];
 
         return (
             <td className="prop-name"
-                onMouseOver={() => showActionsIcon = true}
-                onMouseOut={() => showActionsIcon = false}
+                onMouseOver={() => dispatch(updateConfig(propPath, 'showActionsIcon', true))}
+                onMouseOut={() => dispatch(updateConfig(propPath, 'showActionsIcon'))}
             >
                 {showActionsIcon ? <span className="actions fa fa-cog"></span> : ''}
                 <RIEInput value={name || ''} propName="data"
@@ -32,6 +34,7 @@ class ObjectPropNamePresenter extends Component {
 }
 
 ObjectPropNamePresenter.propTypes = {
+    config: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
     path: PropTypes.array.isRequired

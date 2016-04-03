@@ -12,11 +12,12 @@ class JsonPresenter extends Component {
     render() {
         var data = this.props.data;
         var path = this.props.path;
+        var config = this.props.config;
 
         if (R.isArrayLike(data)) {
-            return (<ArrayPresenter data={data} path={path}/>);
+            return (<ArrayPresenter data={data} path={path} config={config}/>);
         } else if (R.is(Object, data)) {
-            return (<ObjectPresenter data={data} path={path}/>);
+            return (<ObjectPresenter data={data} path={path} config={config}/>);
         } else {
             return (<LiteralPresenter data={data} path={path}/>);
         }
@@ -24,6 +25,7 @@ class JsonPresenter extends Component {
 }
 
 JsonPresenter.propTypes = {
+    config: PropTypes.object.isRequired,
     data: PropTypes.any.isRequired,
     path: PropTypes.array.isRequired
 };

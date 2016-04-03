@@ -47,9 +47,10 @@ var initialState = {
 const store = createStore(reducers, initialState);
 
 function _render() {
+    let state = store.getState();
     render((
         <Provider store={store}>
-            <App data={store.getState().data} rawData={store.getState().rawData} pathUnderMouse={store.getState().pathUnderMouse}/>
+            <App data={state.data} rawData={state.rawData} config={state.config} pathUnderMouse={state.pathUnderMouse}/>
         </Provider>
     ), document.getElementById('app'));
 }

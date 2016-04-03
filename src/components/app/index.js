@@ -17,7 +17,7 @@ class App extends Component {
             <div className={styles.root}>
                 <h1>JSON Presenter</h1>
                 Path: <span id="path">{path}</span>
-                <JsonPresenter data={this.props.data} path={new JsonPath()}/>
+                <JsonPresenter data={this.props.data} config={this.props.config} path={new JsonPath()}/>
                 <button className="update" onClick={() => this.props.dispatch(updateJSON(input.value))}>Update</button><br/>
                 <textarea className="raw-json" rows="25" cols="100"
                     ref={node => input = node}
@@ -29,6 +29,7 @@ class App extends Component {
 }
 
 App.propTypes = {
+    config: PropTypes.object.isRequired,
     data: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
     pathUnderMouse: PropTypes.object,

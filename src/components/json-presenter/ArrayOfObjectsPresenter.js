@@ -7,9 +7,10 @@ import JsonPresenter from '.';
 
 class ArrayOfObjectsPresenter extends Component {
     render() {
-        var data = this.props.data;
-        var path = this.props.path;
-        var keys = R.uniq(R.flatten(R.map(Object.keys, data)));
+        var data   = this.props.data;
+        var path   = this.props.path;
+        var config = this.props.config;
+        var keys   = R.uniq(R.flatten(R.map(Object.keys, data)));
 
         return (
             <table
@@ -48,7 +49,7 @@ class ArrayOfObjectsPresenter extends Component {
                                                 this.props.dispatch(setPath(path.append(i).append(key)));
                                             }}
                                         >
-                                            <JsonPresenter data={row[key]} path={path.append(i).append(key)}/>
+                                            <JsonPresenter data={row[key]} path={path.append(i).append(key)} config={config}/>
                                         </td>
                                     );
                                 })
@@ -62,6 +63,7 @@ class ArrayOfObjectsPresenter extends Component {
 }
 
 ArrayOfObjectsPresenter.propTypes = {
+    config: PropTypes.object.isRequired,
     data: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
     path: PropTypes.array.isRequired

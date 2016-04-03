@@ -7,8 +7,9 @@ import ObjectPropNamePresenter from './ObjectPropNamePresenter';
 
 class ObjectPresenter extends Component {
     render() {
-        var data = this.props.data;
-        var path = this.props.path;
+        var data   = this.props.data;
+        var path   = this.props.path;
+        var config = this.props.config;
 
         return (
             <table
@@ -29,8 +30,8 @@ class ObjectPresenter extends Component {
                                     this.props.dispatch(setPath(path.append(key)));
                                 }}
                             >
-                                <ObjectPropNamePresenter path={path} name={key}/>
-                                <td className="prop-value"><JsonPresenter data={data[key]} path={path.append(key)}/></td>
+                                <ObjectPropNamePresenter config={this.props.config} path={path} name={key}/>
+                                <td className="prop-value"><JsonPresenter data={data[key]} path={path.append(key)} config={config}/></td>
                             </tr>
                         )
                     }
@@ -41,6 +42,7 @@ class ObjectPresenter extends Component {
 }
 
 ObjectPresenter.propTypes = {
+    config: PropTypes.object.isRequired,
     data: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
     path: PropTypes.array.isRequired
