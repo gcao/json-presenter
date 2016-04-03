@@ -14,11 +14,27 @@ td {
     padding: 4px 6px;
 }
 
-.actions {
+.ctrls-toggle {
     font-weight: normal;
     font-size: small;
     color: #888;
     padding-right: 3px;
+}
+
+.ctrls-container {
+    display: none;
+
+    .ctrls {
+        display: inline-block;
+        border: 1px solid #999;
+        border-radius: 10px;
+        padding: 3px 5px 0 5px;
+
+        span {
+            color: #666;
+            margin: 3px;
+        }
+    }
 }
 
 .json-object {

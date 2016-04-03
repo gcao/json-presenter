@@ -20,7 +20,13 @@ class ObjectPropNamePresenter extends Component {
                 onMouseOver={() => dispatch(updateConfig(propPath, 'showActionsIcon', true))}
                 onMouseOut={() => dispatch(updateConfig(propPath, 'showActionsIcon'))}
             >
-                <span className={'actions fa ' + (showActionsIcon ? 'fa-cog' : 'fa-fw')}></span>
+                <div className="ctrls-container">
+                    <div className="ctrls">
+                        <span className="fa fa-plus"></span>
+                        <span className="fa fa-minus"></span>
+                    </div>
+                </div>
+                <span className={'ctrls-toggle fa ' + (showActionsIcon ? 'fa-cog' : 'fa-fw')}></span>
                 <RIEInput value={name || ''} propName="data"
                     change={change => {
                         if (name !== change.data) {
