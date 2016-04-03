@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { RIEInput } from 'riek';
 
-import { setPath, updatePropName } from '../../actions';
+import { setPath } from '../../actions';
 import JsonPresenter from '.';
+import ObjectPropNamePresenter from './ObjectPropNamePresenter';
 
 class ObjectPresenter extends Component {
     render() {
@@ -29,15 +29,7 @@ class ObjectPresenter extends Component {
                                     this.props.dispatch(setPath(path.append(key)));
                                 }}
                             >
-                                <td className="prop-name">
-                                    <RIEInput value={key || ''} propName="data"
-                                        change={change => {
-                                            if (key !== change.data) {
-                                                this.props.dispatch(updatePropName(this.props.path, key, change.data));
-                                            }
-                                        }}
-                                    />
-                                </td>
+                                <ObjectPropNamePresenter path={path} name={key}/>
                                 <td className="prop-value"><JsonPresenter data={data[key]} path={path.append(key)}/></td>
                             </tr>
                         )
