@@ -25,7 +25,7 @@ class JsonPresenter extends Component {
 }
 
 JsonPresenter.propTypes = {
-    data: PropTypes.any.optional,
+    data: PropTypes.any,
     path: PropTypes.instanceOf(JsonPath).isRequired
 };
 

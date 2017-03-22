@@ -25,7 +25,7 @@ class LiteralPresenter extends Component {
 }
 
 LiteralPresenter.propTypes = {
-    data: PropTypes.any.optional,
+    data: PropTypes.any,
     dispatch: PropTypes.func.isRequired,
     path: PropTypes.instanceOf(JsonPath).isRequired
 };
