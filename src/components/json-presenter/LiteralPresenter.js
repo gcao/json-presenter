@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { RIEInput } from 'riek';
 
+import JsonPath from '../../json-path';
 import { updateData } from '../../actions';
 
 class LiteralPresenter extends Component {
@@ -24,9 +25,9 @@ class LiteralPresenter extends Component {
 }
 
 LiteralPresenter.propTypes = {
-    data: PropTypes.any.isRequired,
+    data: PropTypes.any.optional,
     dispatch: PropTypes.func.isRequired,
-    path: PropTypes.array.isRequired
+    path: PropTypes.instanceOf(JsonPath).isRequired
 };
 
 export default connect()(LiteralPresenter);

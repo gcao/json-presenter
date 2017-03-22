@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import R from 'ramda';
 global.R = R; // Exported for testing purpose
 
+import JsonPath from '../../json-path';
 import ObjectPresenter from './ObjectPresenter';
 import ArrayPresenter from './ArrayPresenter';
 import LiteralPresenter from './LiteralPresenter';
@@ -24,8 +25,8 @@ class JsonPresenter extends Component {
 }
 
 JsonPresenter.propTypes = {
-    data: PropTypes.any.isRequired,
-    path: PropTypes.array.isRequired
+    data: PropTypes.any.optional,
+    path: PropTypes.instanceOf(JsonPath).isRequired
 };
 
 export default JsonPresenter;

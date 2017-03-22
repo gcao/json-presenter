@@ -22,6 +22,7 @@ class App extends Component {
                 <textarea className="raw-json" rows="25" cols="100"
                     ref={node => input = node}
                     value={this.props.rawData}
+                    onChange={event => this.props.dispatch(updateJSON(event.target.value))}
                 />
             </div>
         );

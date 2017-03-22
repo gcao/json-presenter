@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
+import JsonPath from '../../json-path';
 import { setPath } from '../../actions';
 import JsonPresenter from '.';
 import ArrayOfArraysPresenter from './ArrayOfArraysPresenter';
@@ -52,7 +53,7 @@ class ArrayPresenter extends Component {
 ArrayPresenter.propTypes = {
     data: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
-    path: PropTypes.array.isRequired
+    path: PropTypes.instanceOf(JsonPath).isRequired
 };
 
 export default connect()(ArrayPresenter);

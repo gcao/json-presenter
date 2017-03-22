@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
+import JsonPath from '../../json-path';
 import { setPath } from '../../actions';
 import JsonPresenter from '.';
 
@@ -20,41 +21,43 @@ class ArrayOfArraysPresenter extends Component {
                     this.props.dispatch(setPath(path));
                 }}
             >
-                {
-                    <tr className="head">
-                        <th className="index-col">&nbsp;</th>
-                        {
-                            R.times((i) => <th key={i}>{i+1}</th>, width)
-                        }
-                    </tr>
-                }
-                {
-                    data.map((row, i) =>
-                        <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
-                            onMouseEnter={e => {
-                                e.preventDefault();
-                                e.stopPropagation();
-                                this.props.dispatch(setPath(path.append(i)));
-                            }}
-                        >
-                            <td className="index-col">{i + 1}</td>
+                <tbody>
+                    {
+                        <tr className="head">
+                            <th className="index-col">&nbsp;</th>
                             {
-                                R.times((j) => {
-                                    return (
-                                        <td onMouseEnter={e => {
-                                            e.preventDefault();
-                                            e.stopPropagation();
-                                            this.props.dispatch(setPath(path.append(i).append(j)));
-                                        }}
-                                        >
-                                            <JsonPresenter data={row[j]} path={path.append(i).append(j)}/>
-                                        </td>
-                                    );
-                                }, width)
+                                R.times((i) => <th key={i}>{i+1}</th>, width)
                             }
                         </tr>
-                    )
-                }
+                    }
+                    {
+                        data.map((row, i) =>
+                            <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
+                                onMouseEnter={e => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    this.props.dispatch(setPath(path.append(i)));
+                                }}
+                            >
+                                <td className="index-col">{i + 1}</td>
+                                {
+                                    R.times((j) => {
+                                        return (
+                                            <td key={j} onMouseEnter={e => {
+                                                e.preventDefault();
+                                                e.stopPropagation();
+                                                this.props.dispatch(setPath(path.append(i).append(j)));
+                                            }}
+                                            >
+                                                <JsonPresenter data={row[j]} path={path.append(i).append(j)}/>
+                                            </td>
+                                        );
+                                    }, width)
+                                }
+                            </tr>
+                        )
+                    }
+                </tbody>
             </table>
         );
     }
@@ -63,7 +66,7 @@ class ArrayOfArraysPresenter extends Component {
 ArrayOfArraysPresenter.propTypes = {
     data: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
-    path: PropTypes.array.isRequired
+    path: PropTypes.instanceOf(JsonPath).isRequired
 };
 
 export default connect()(ArrayOfArraysPresenter);
