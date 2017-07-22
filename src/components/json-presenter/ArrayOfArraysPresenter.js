@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import R from 'ramda';
 
 import JsonPath from '../../json-path';
-import JsonPresenter from '.';
-import { createMouseEnterHandler, createMouseOutHandler } from './utils';
+import GenericPresenter from './GenericPresenter';
+import { createMouseEnterHandler } from './utils';
 
 class ArrayOfArraysPresenter extends Component {
     render() {
@@ -14,7 +14,6 @@ class ArrayOfArraysPresenter extends Component {
         return (
             <table className={'json-array-array depth' + path.size()}
                 onMouseEnter={createMouseEnterHandler(dispatch, path)}
-                onMouseOut={createMouseOutHandler(dispatch)}
             >
                 <tbody>
                     {
@@ -41,7 +40,7 @@ class ArrayOfArraysPresenter extends Component {
                                             <td key={j}
                                                 onMouseEnter={createMouseEnterHandler(this.props.dispatch, path.append(i).append(j))}
                                             >
-                                                <JsonPresenter data={row[j]} path={path.append(i).append(j)}/>
+                                                <GenericPresenter data={row[j]} path={path.append(i).append(j)}/>
                                             </td>
                                         );
                                     }, width)

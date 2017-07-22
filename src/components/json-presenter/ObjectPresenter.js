@@ -4,7 +4,7 @@ import { RIEInput } from 'riek';
 
 import JsonPath from '../../json-path';
 import { setPath, updatePropName } from '../../actions';
-import JsonPresenter from '.';
+import GenericPresenter from './GenericPresenter';
 
 class ObjectPresenter extends Component {
     render() {
@@ -39,7 +39,7 @@ class ObjectPresenter extends Component {
                                         }}
                                     />
                                 </td>
-                                <td className="prop-value"><JsonPresenter data={data[key]} path={path.append(key)}/></td>
+                                <td className="prop-value"><GenericPresenter data={data[key]} path={path.append(key)}/></td>
                             </tr>
                         )
                     }

@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import R from 'ramda';
 
 import JsonPath from '../../json-path';
-// import { setPath } from '../../actions';
-// import JsonPresenter from '.';
 import ArrayOfArraysPresenter from './ArrayOfArraysPresenter';
 import ArrayOfObjectsPresenter from './ArrayOfObjectsPresenter';
 import ArrayOfLiteralsPresenter from './ArrayOfLiteralsPresenter';

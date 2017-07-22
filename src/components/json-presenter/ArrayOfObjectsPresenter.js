@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import R from 'ramda';
 
 import JsonPath from '../../json-path';
-import JsonPresenter from '.';
+import GenericPresenter from './GenericPresenter';
 import { createMouseEnterHandler } from './utils';
 
 class ArrayOfObjectsPresenter extends Component {
@@ -40,7 +40,7 @@ class ArrayOfObjectsPresenter extends Component {
                                             <td key={j}
                                                 onMouseEnter={createMouseEnterHandler(dispatch, path.append(i).append(key))}
                                             >
-                                                <JsonPresenter data={row[key]} path={path.append(i).append(key)}/>
+                                                <GenericPresenter data={row[key]} path={path.append(i).append(key)}/>
                                             </td>
                                         );
                                     })

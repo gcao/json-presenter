@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import JsonPath from '../../json-path';
-import JsonPresenter from '.';
+import GenericPresenter from './GenericPresenter';
 import { createMouseEnterHandler } from './utils';
 
 class ArrayOfLiteralsPresenter extends Component {
@@ -15,7 +15,7 @@ class ArrayOfLiteralsPresenter extends Component {
             >
                 {
                     data.map((row, i) =>
-                        <JsonPresenter key={i} data={row} path={path.append(i)}/>
+                        <GenericPresenter key={i} data={row} path={path.append(i)}/>
                     )
                 }
             </div>
@@ -37,7 +37,7 @@ class ArrayOfLiteralsPresenter extends Component {
             //                 }}
             //             >
             //                 <td>
-            //                     <JsonPresenter data={item} path={path.append(i)}/>
+            //                     <GenericPresenter data={item} path={path.append(i)}/>
             //                 </td>
             //             </tr>
             //         )
