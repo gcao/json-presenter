@@ -23,6 +23,11 @@ td {
     background-color: white;
 }
 
+.json-empty-array {
+    font-style: italic;
+    color: white;
+}
+
 .json-object-array {
     border: 1px solid #88f;
     border-collapse: separate;
@@ -33,6 +38,17 @@ td {
     border: 1px solid #88f;
     border-collapse: separate;
     background-color: white;
+}
+
+.json-literal {
+    display: inline-block;
+}
+
+.json-literal-array > .json-literal {
+    border: white 1px solid;
+    margin-right: 10px;
+    padding: 5px 10px;
+    border-radius: 15px;
 }
 
 .index-col {

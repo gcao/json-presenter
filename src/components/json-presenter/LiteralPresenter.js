@@ -4,18 +4,20 @@ import { RIEInput } from 'riek';
 
 import JsonPath from '../../json-path';
 import { updateData } from '../../actions';
+import { createMouseEnterHandler } from './utils';
 
 class LiteralPresenter extends Component {
     render() {
-        var data = this.props.data;
-        var path = this.props.path;
+        let {dispatch, data, path} = this.props;
 
         return (
-            <div className={'json-literal depth' + path.size()}>
+            <div className={'json-literal depth' + path.size()}
+                onMouseEnter={createMouseEnterHandler(dispatch, path)}
+            >
                 <RIEInput value={data || ''} propName="data"
                     change={change => {
-                        if (this.props.data !== change.data) {
-                            this.props.dispatch(updateData(this.props.path, change.data));
+                        if (data !== change.data) {
+                            dispatch(updateData(path, change.data));
                         }
                     }}
                 />

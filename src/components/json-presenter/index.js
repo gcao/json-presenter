@@ -11,8 +11,7 @@ import './styles.scss';
 
 class JsonPresenter extends Component {
     render() {
-        var data = this.props.data;
-        var path = this.props.path;
+        let {data, path} = this.props;
 
         if (R.isArrayLike(data)) {
             return (<ArrayPresenter data={data} path={path}/>);

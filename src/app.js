@@ -7,6 +7,8 @@ import { createStore } from 'redux';
 import App from './components/app';
 import reducers from './reducers';
 
+import './app.scss';
+
 let rawData = `
     {
         "a": "a-value",
@@ -27,15 +29,23 @@ let rawData = `
         ],
         "c": [
             [
-              "item 1",
-              "item 2",
-              "item 3"
+                "cell 1-1",
+                {
+                    "first": "first value",
+                    "second": "second value"
+                }
             ],
             [
-              { "name": "John Doe", "age": 20, "email": "john_doe@company.com" }
+                "cell 2-1",
+                {
+                    "first": "first value",
+                    "second": "second value"
+                }
             ]
         ],
-        "d": { "name": "John Doe", "age": 20, "email": "john_doe@company.com" }
+        "d": { "name": "John Doe", "age": 20, "email": "john_doe@company.com" },
+        "e": [ "Test 1", "Test 2", "Test 3" ],
+        "f": []
     }
 `;
 
@@ -53,7 +63,15 @@ const store = createStore(
 function _render() {
     render((
         <Provider store={store}>
-            <App data={store.getState().data} rawData={store.getState().rawData} pathUnderMouse={store.getState().pathUnderMouse}/>
+            <div className="container">
+                <p>a: Literal</p>
+                <p>b: Array of objects</p>
+                <p>c: Array of arrays</p>
+                <p>d: Object</p>
+                <p>e: Array of literals</p>
+                <p>f: Empty array</p>
+                <App data={store.getState().data} rawData={store.getState().rawData} pathUnderMouse={store.getState().pathUnderMouse}/>
+            </div>
         </Provider>
     ), document.getElementById('app'));
 }

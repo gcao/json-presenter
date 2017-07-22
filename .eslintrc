@@ -35,7 +35,9 @@
             "always"
         ],
         "strict": 0,
+        "comma-dangle": 0,
         "jsx-quotes": 1,
+        "no-debugger": 0,
         "react/display-name": 0,
         "react/forbid-prop-types": 0,
         "react/jsx-boolean-value": 1,

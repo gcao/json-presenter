@@ -21,9 +21,15 @@ class JsonPath {
     }
 
     toString() {
-        if (this.parts.length === 0) return 'this';
+        if (this.parts.length === 0) return '';
 
-        return 'this' + this.parts.map((part) => `[${JSON.stringify(part)}]`).join('');
+        return 'this' + this.parts.map((part) => {
+            if (typeof part === 'number') {
+                return part < 0 ? '[*]' : `[${part}]`;
+            } else {
+                return `.${part}`;
+            }
+        }).join('');
     }
 }
 
