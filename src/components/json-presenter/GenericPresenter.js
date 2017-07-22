@@ -8,14 +8,14 @@ import LiteralPresenter from './LiteralPresenter';
 
 class GenericPresenter extends Component {
     render() {
-        let {data, path} = this.props;
+        let {data} = this.props;
 
         if (R.isArrayLike(data)) {
-            return (<ArrayPresenter data={data} path={path}/>);
+            return (<ArrayPresenter {...this.props}/>);
         } else if (R.is(Object, data)) {
-            return (<ObjectPresenter data={data} path={path}/>);
+            return (<ObjectPresenter {...this.props}/>);
         } else {
-            return (<LiteralPresenter data={data} path={path}/>);
+            return (<LiteralPresenter {...this.props}/>);
         }
     }
 }

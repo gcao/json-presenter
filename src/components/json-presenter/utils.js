@@ -1,10 +1,11 @@
+import JsonPath from '../../json-path';
 import { setPath } from '../../actions';
 
 export function createMouseOutHandler(dispatch) {
     return e => {
         e.preventDefault();
         e.stopPropagation();
-        dispatch(setPath([]));
+        dispatch(setPath(new JsonPath([])));
     };
 }
 

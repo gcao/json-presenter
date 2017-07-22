@@ -4,24 +4,28 @@ import { connect } from 'react-redux';
 import { updateJSON } from '../../actions';
 import { JsonRootPresenter } from '../json-presenter';
 
-import styles from './styles.scss';
+import './styles.scss';
 
 class App extends Component {
     render() {
         let input;
-        let pathUnderMouse = this.props.pathUnderMouse;
+        let {dispatch, data, rawData, pathUnderMouse} = this.props;
         let path = pathUnderMouse ? pathUnderMouse.toString() : '';
 
         return (
-            <div className={styles.root}>
+            <div>
                 <h1>JSON Presenter</h1>
+
                 Path: <span id="path">{path}</span>
-                <JsonRootPresenter data={this.props.data}/>
-                <button className="update" onClick={() => this.props.dispatch(updateJSON(input.value))}>Update</button><br/>
+                <JsonRootPresenter data={data}/>
+
+                <button className="update"
+                    onClick={() => dispatch(updateJSON(input.value))}
+                >Update</button><br/>
                 <textarea className="raw-json" rows="25" cols="100"
                     ref={node => input = node}
-                    value={this.props.rawData}
-                    onChange={event => this.props.dispatch(updateJSON(event.target.value))}
+                    value={rawData}
+                    onChange={event => dispatch(updateJSON(event.target.value))}
                 />
             </div>
         );

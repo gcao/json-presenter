@@ -61,6 +61,9 @@ const store = createStore(
 );
 
 function _render() {
+    let state = store.getState();
+    let {data, rawData, pathUnderMouse} = state;
+
     render((
         <Provider store={store}>
             <div className="container">
@@ -70,7 +73,7 @@ function _render() {
                 <p>d: Object</p>
                 <p>e: Array of literals</p>
                 <p>f: Empty array</p>
-                <App data={store.getState().data} rawData={store.getState().rawData} pathUnderMouse={store.getState().pathUnderMouse}/>
+                <App data={data} rawData={rawData} pathUnderMouse={pathUnderMouse}/>
             </div>
         </Provider>
     ), document.getElementById('app'));
