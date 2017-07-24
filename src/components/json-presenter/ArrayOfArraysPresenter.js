@@ -2,43 +2,42 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
+import defaultSelector from '../../selectors';
 import JsonPath from '../../json-path';
 import GenericPresenter from './GenericPresenter';
-import { createMouseEnterHandler } from './utils';
+import { createMouseOverHandler } from './utils';
 
 class ArrayOfArraysPresenter extends Component {
     render() {
-        let {dispatch, data, path} = this.props;
+        let {dispatch, data, path, pathUnderMouse} = this.props;
         let width = R.last(data.map(R.length).sort());
 
         return (
             <table className={'json-array-array depth' + path.size()}
-                onMouseEnter={createMouseEnterHandler(dispatch, path)}
+                onMouseOver={createMouseOverHandler(dispatch, path, pathUnderMouse)}
             >
                 <tbody>
-                    {
-                        <tr className="head">
-                            <th className="index-col">&nbsp;</th>
-                            {
-                                R.times((i) =>
-                                    <th key={i}
-                                        onMouseEnter={createMouseEnterHandler(this.props.dispatch, path.append(-1).append(i))}
-                                    >{i+1}</th>
-                                , width)
-                            }
-                        </tr>
-                    }
+                    <tr className="head">
+                        <th className="index-col">&nbsp;</th>
+                        {
+                            R.times((i) =>
+                                <th key={i}
+                                    onMouseOver={createMouseOverHandler(this.props.dispatch, path.append(-1).append(i), pathUnderMouse)}
+                                >{i+1}</th>
+                            , width)
+                        }
+                    </tr>
                     {
                         data.map((row, i) =>
                             <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
                                 <td className="index-col"
-                                    onMouseEnter={createMouseEnterHandler(this.props.dispatch, path.append(i))}
+                                    onMouseOver={createMouseOverHandler(this.props.dispatch, path.append(i), pathUnderMouse)}
                                 >{i + 1}</td>
                                 {
                                     R.times((j) => {
                                         return (
                                             <td key={j}
-                                                onMouseEnter={createMouseEnterHandler(this.props.dispatch, path.append(i).append(j))}
+                                                onMouseOver={createMouseOverHandler(this.props.dispatch, path.append(i).append(j), pathUnderMouse)}
                                             >
                                                 <GenericPresenter data={row[j]} path={path.append(i).append(j)}/>
                                             </td>
@@ -57,7 +56,8 @@ class ArrayOfArraysPresenter extends Component {
 ArrayOfArraysPresenter.propTypes = {
     data: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
-    path: PropTypes.instanceOf(JsonPath).isRequired
+    path: PropTypes.instanceOf(JsonPath).isRequired,
+    pathUnderMouse: PropTypes.object,
 };
 
-export default connect()(ArrayOfArraysPresenter);
+export default connect(defaultSelector)(ArrayOfArraysPresenter);

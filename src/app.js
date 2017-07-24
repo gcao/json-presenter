@@ -61,8 +61,7 @@ const store = createStore(
 );
 
 function _render() {
-    let state = store.getState();
-    let {data, rawData, pathUnderMouse} = state;
+    let {data, rawData, pathUnderMouse} = store.getState();
 
     render((
         <Provider store={store}>
@@ -82,4 +81,3 @@ function _render() {
 _render();
 
 store.subscribe(_render);
-

@@ -9,10 +9,12 @@ export function createMouseOutHandler(dispatch) {
     };
 }
 
-export function createMouseEnterHandler(dispatch, path) {
+export function createMouseOverHandler(dispatch, path, pathUnderMouse) {
     return e => {
         e.preventDefault();
         e.stopPropagation();
-        dispatch(setPath(path));
+        if (path && pathUnderMouse && path.toString() !== pathUnderMouse.toString()) {
+            dispatch(setPath(path));
+        }
     };
 }

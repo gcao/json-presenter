@@ -2,25 +2,26 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { RIEInput } from 'riek';
 
+import defaultSelector from '../../selectors';
 import JsonPath from '../../json-path';
 import { updatePropName } from '../../actions';
 import GenericPresenter from './GenericPresenter';
-import { createMouseEnterHandler } from './utils';
+import { createMouseOverHandler } from './utils';
 
 class ObjectPresenter extends Component {
     render() {
-        let {dispatch, data, path} = this.props;
+        let {dispatch, data, path, pathUnderMouse} = this.props;
 
         return (
             <table className={'json-object depth' + path.size()}
-                onMouseEnter={createMouseEnterHandler(dispatch, path)}
+                onMouseOver={createMouseOverHandler(dispatch, path, pathUnderMouse)}
             >
                 <tbody>
                     {
                         Object.keys(data).sort().map((key, i) =>
                             <tr key={key} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
                                 <td className="prop-name"
-                                    onMouseEnter={createMouseEnterHandler(dispatch, path.append(key))}
+                                    onMouseOver={createMouseOverHandler(dispatch, path.append(key), pathUnderMouse)}
                                 >
                                     <RIEInput value={key || ''} propName="data"
                                         change={change => {
@@ -31,7 +32,7 @@ class ObjectPresenter extends Component {
                                     />
                                 </td>
                                 <td className="prop-value"
-                                    onMouseEnter={createMouseEnterHandler(dispatch, path.append(key))}
+                                    onMouseOver={createMouseOverHandler(dispatch, path.append(key), pathUnderMouse)}
                                 >
                                     <GenericPresenter data={data[key]} path={path.append(key)}/>
                                 </td>
@@ -47,7 +48,8 @@ class ObjectPresenter extends Component {
 ObjectPresenter.propTypes = {
     data: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
-    path: PropTypes.instanceOf(JsonPath).isRequired
+    path: PropTypes.instanceOf(JsonPath).isRequired,
+    pathUnderMouse: PropTypes.object,
 };
 
-export default connect()(ObjectPresenter);
+export default connect(defaultSelector)(ObjectPresenter);

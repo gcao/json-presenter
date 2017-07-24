@@ -1,17 +1,18 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
+import defaultSelector from '../../selectors';
 import JsonPath from '../../json-path';
 import GenericPresenter from './GenericPresenter';
-import { createMouseEnterHandler } from './utils';
+import { createMouseOverHandler } from './utils';
 
 class ArrayOfLiteralsPresenter extends Component {
     render() {
-        let {data, path} = this.props;
+        let {data, path, pathUnderMouse} = this.props;
 
         return (
             <div className={'json-literal-array depth' + path.size()}
-                onMouseEnter={createMouseEnterHandler(this.props.dispatch, path)}
+                onMouseOver={createMouseOverHandler(this.props.dispatch, path, pathUnderMouse)}
             >
                 {
                     data.map((row, i) =>
@@ -21,7 +22,7 @@ class ArrayOfLiteralsPresenter extends Component {
             </div>
             // <table
             //     className={'json-array depth' + path.size()}
-            //     onMouseEnter={e => {
+            //     onMouseOver={e => {
             //         e.preventDefault();
             //         e.stopPropagation();
             //         this.props.dispatch(setPath(path));
@@ -30,7 +31,7 @@ class ArrayOfLiteralsPresenter extends Component {
             //     {
             //         data.map((item, i) =>
             //             <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}
-            //                 onMouseEnter={e => {
+            //                 onMouseOver={e => {
             //                     e.preventDefault();
             //                     e.stopPropagation();
             //                     this.props.dispatch(setPath(path.append(i)));
@@ -50,7 +51,8 @@ class ArrayOfLiteralsPresenter extends Component {
 ArrayOfLiteralsPresenter.propTypes = {
     data: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
-    path: PropTypes.instanceOf(JsonPath).isRequired
+    path: PropTypes.instanceOf(JsonPath).isRequired,
+    pathUnderMouse: PropTypes.object,
 };
 
-export default connect()(ArrayOfLiteralsPresenter);
+export default connect(defaultSelector)(ArrayOfLiteralsPresenter);

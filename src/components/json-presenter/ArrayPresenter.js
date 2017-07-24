@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import R from 'ramda';
 
+import defaultSelector from '../../selectors';
 import JsonPath from '../../json-path';
 import ArrayOfArraysPresenter from './ArrayOfArraysPresenter';
 import ArrayOfObjectsPresenter from './ArrayOfObjectsPresenter';
@@ -33,4 +34,4 @@ ArrayPresenter.propTypes = {
     path: PropTypes.instanceOf(JsonPath).isRequired
 };
 
-export default connect()(ArrayPresenter);
+export default connect(defaultSelector)(ArrayPresenter);
