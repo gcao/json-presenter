@@ -49,10 +49,10 @@ class ArrayOfLiteralsPresenter extends Component {
 }
 
 ArrayOfLiteralsPresenter.propTypes = {
-    data: PropTypes.any.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    path: PropTypes.instanceOf(JsonPath).isRequired,
-    pathUnderMouse: PropTypes.object,
+    data           : PropTypes.any.isRequired,
+    dispatch       : PropTypes.func.isRequired,
+    path           : PropTypes.instanceOf(JsonPath).isRequired,
+    pathUnderMouse : PropTypes.object,
 };
 
 export default connect(defaultSelector)(ArrayOfLiteralsPresenter);

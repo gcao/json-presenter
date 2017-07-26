@@ -33,10 +33,10 @@ class App extends Component {
 }
 
 App.propTypes = {
-    data: PropTypes.any.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    pathUnderMouse: PropTypes.object,
-    rawData: PropTypes.string.isRequired
+    data           : PropTypes.any.isRequired,
+    dispatch       : PropTypes.func.isRequired,
+    pathUnderMouse : PropTypes.object,
+    rawData        : PropTypes.string.isRequired
 };
 
 export default connect()(App);

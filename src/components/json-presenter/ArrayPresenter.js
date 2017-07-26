@@ -7,10 +7,11 @@ import JsonPath from '../../json-path';
 import ArrayOfArraysPresenter from './ArrayOfArraysPresenter';
 import ArrayOfObjectsPresenter from './ArrayOfObjectsPresenter';
 import ArrayOfLiteralsPresenter from './ArrayOfLiteralsPresenter';
+import { createMouseOverHandler } from './utils';
 
 class ArrayPresenter extends Component {
     render() {
-        let {data, path} = this.props;
+        let {dispatch, data, path, pathUnderMouse} = this.props;
 
         if (data.length > 0) {
             if (R.isArrayLike(data[0])) {
@@ -22,16 +23,19 @@ class ArrayPresenter extends Component {
             }
         } else {
             return (
-                <div className="json-empty-array">Empty array</div>
+                <div className="json-empty-array"
+                    onMouseOver={createMouseOverHandler(dispatch, path, pathUnderMouse)}
+                >Empty array</div>
             );
         }
     }
 }
 
 ArrayPresenter.propTypes = {
-    data: PropTypes.any.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    path: PropTypes.instanceOf(JsonPath).isRequired
+    data           : PropTypes.any.isRequired,
+    dispatch       : PropTypes.func.isRequired,
+    path           : PropTypes.instanceOf(JsonPath).isRequired,
+    pathUnderMouse : PropTypes.object,
 };
 
 export default connect(defaultSelector)(ArrayPresenter);

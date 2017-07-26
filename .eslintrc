@@ -23,9 +23,7 @@
             2,
             "unix"
         ],
-        "no-console": [2,
-            { "allow": ["warn", "error"] }
-        ],
+        "no-console": 0,
         "quotes": [
             2,
             "single"

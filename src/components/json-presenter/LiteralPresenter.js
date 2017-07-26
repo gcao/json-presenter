@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { RIEInput } from 'riek';
 
+import defaultSelector from '../../selectors';
 import JsonPath from '../../json-path';
 import { updateData } from '../../actions';
 import { createMouseOverHandler } from './utils';
@@ -27,10 +28,10 @@ class LiteralPresenter extends Component {
 }
 
 LiteralPresenter.propTypes = {
-    data: PropTypes.any,
-    dispatch: PropTypes.func.isRequired,
-    path: PropTypes.instanceOf(JsonPath).isRequired,
-    pathUnderMouse: PropTypes.object,
+    data           : PropTypes.any,
+    dispatch       : PropTypes.func.isRequired,
+    path           : PropTypes.instanceOf(JsonPath).isRequired,
+    pathUnderMouse : PropTypes.object,
 };
 
-export default connect()(LiteralPresenter);
+export default connect(defaultSelector)(LiteralPresenter);
