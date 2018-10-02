@@ -6,6 +6,7 @@ import defaultSelector from '../../selectors';
 import JsonPath from '../../json-path';
 import GenericPresenter from './GenericPresenter';
 import { createMouseOverHandler } from './utils';
+import { sort } from '../../actions';
 
 class ArrayOfObjectsPresenter extends Component {
     render() {
@@ -24,7 +25,10 @@ class ArrayOfObjectsPresenter extends Component {
                                 keys.map((key, i) =>
                                     <th key={i}
                                         onMouseOver={createMouseOverHandler(dispatch, path.append(-1).append(key), pathUnderMouse)}
-                                    >{key}</th>
+                                    >
+                                        <span>{key}</span>
+                                        <i className="fas fa-sort" onClick={() => dispatch(sort(path, key))}></i>
+                                    </th>
                                 )
                             }
                         </tr>

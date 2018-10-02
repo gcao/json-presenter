@@ -6,6 +6,7 @@ import defaultSelector from '../../selectors';
 import JsonPath from '../../json-path';
 import GenericPresenter from './GenericPresenter';
 import { createMouseOverHandler } from './utils';
+import { sort } from '../../actions';
 
 class ArrayOfArraysPresenter extends Component {
     render() {
@@ -22,8 +23,11 @@ class ArrayOfArraysPresenter extends Component {
                         {
                             R.times((i) =>
                                 <th key={i}
-                                    onMouseOver={createMouseOverHandler(this.props.dispatch, path.append(-1).append(i), pathUnderMouse)}
-                                >{i+1}</th>
+                                    onMouseOver={createMouseOverHandler(dispatch, path.append(-1).append(i), pathUnderMouse)}
+                                >
+                                    <span>{i+1}</span>
+                                    <i className="fas fa-sort" onClick={() => dispatch(sort(path, i))}></i>
+                                </th>
                             , width)
                         }
                     </tr>
@@ -31,13 +35,13 @@ class ArrayOfArraysPresenter extends Component {
                         data.map((row, i) =>
                             <tr key={i} className={'row ' + (i % 2 == 0 ? 'odd' : 'even')}>
                                 <td className="index-col"
-                                    onMouseOver={createMouseOverHandler(this.props.dispatch, path.append(i), pathUnderMouse)}
+                                    onMouseOver={createMouseOverHandler(dispatch, path.append(i), pathUnderMouse)}
                                 >{i + 1}</td>
                                 {
                                     R.times((j) => {
                                         return (
                                             <td key={j}
-                                                onMouseOver={createMouseOverHandler(this.props.dispatch, path.append(i).append(j), pathUnderMouse)}
+                                                onMouseOver={createMouseOverHandler(dispatch, path.append(i).append(j), pathUnderMouse)}
                                             >
                                                 <GenericPresenter data={row[j]} path={path.append(i).append(j)}/>
                                             </td>

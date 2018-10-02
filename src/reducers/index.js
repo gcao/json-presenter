@@ -1,7 +1,7 @@
-import { SET_PATH, UPDATE_JSON, UPDATE_DATA, UPDATE_PROP_NAME } from '../actions';
+import { SET_PATH, UPDATE_JSON, UPDATE_DATA, UPDATE_PROP_NAME, SORT } from '../actions';
 
 export default function reducers(state = {}, action) {
-    var path, value, current;
+    var path, value, current, key;
 
     switch (action.type) {
     case UPDATE_JSON:
@@ -9,10 +9,12 @@ export default function reducers(state = {}, action) {
             rawData: action.json,
             data: JSON.parse(action.json)
         });
+
     case SET_PATH:
         return Object.assign({}, state, {
             pathUnderMouse: action.path
         });
+
     case UPDATE_DATA:
         path = action.path;
         value = action.value;
@@ -26,6 +28,7 @@ export default function reducers(state = {}, action) {
             rawData: JSON.stringify(state.data, null, 4),
             data: state.data
         });
+
     case UPDATE_PROP_NAME:
         path = action.path;
         var oldName = action.oldName;
@@ -38,8 +41,23 @@ export default function reducers(state = {}, action) {
             rawData: JSON.stringify(state.data, null, 4),
             data: state.data
         });
+
+    case SORT:
+        path = action.path;
+        key  = action.key;
+        var base = path.findIn(state.data);
+        // sort will sort the array in place!
+        base.sort((x, y) => compare(x[key], y[key]));
+        return Object.assign({}, state, {
+            rawData: JSON.stringify(state.data, null, 4),
+            data: state.data
+        });
+
     default:
         return state;
     }
 }
 
+function compare(a, b) {
+    return a < b ? -1 : (a > b ? 1 : 0);
+}
