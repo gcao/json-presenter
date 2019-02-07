@@ -1,19 +1,20 @@
-import React from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-export default class InplaceEditable extends React.Component {
+export default class InplaceEditable extends Component {
     static propTypes = {
-        change                  : React.PropTypes.func.isRequired,
-        classDisabled           : React.PropTypes.string,
-        classEditing            : React.PropTypes.string,
-        classInvalid            : React.PropTypes.string,
-        classLoading            : React.PropTypes.string,
-        className               : React.PropTypes.string,
-        isDisabled              : React.PropTypes.bool,
-        onMouseOver             : React.PropTypes.func,
-        propName                : React.PropTypes.string.isRequired,
-        shouldBlockWhileLoading : React.PropTypes.bool,
-        validate                : React.PropTypes.func,
-        value                   : React.PropTypes.any.isRequired,
+        change                  : PropTypes.func.isRequired,
+        classDisabled           : PropTypes.string,
+        classEditing            : PropTypes.string,
+        classInvalid            : PropTypes.string,
+        classLoading            : PropTypes.string,
+        className               : PropTypes.string,
+        isDisabled              : PropTypes.bool,
+        onMouseOver             : PropTypes.func,
+        propName                : PropTypes.string.isRequired,
+        shouldBlockWhileLoading : PropTypes.bool,
+        validate                : PropTypes.func,
+        value                   : PropTypes.any.isRequired,
     };
 
     constructor(props){
